@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SerhatYas.WebUI.Models.ServiceVM
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h1>Project List</h1>
+    </div>
+    <div class="card-body">
+        <div class="col-md-12 mb-5">
+            <a href="/projects/create" class="btn btn-primary " style="margin-left:auto;marig">Add Project</a>
+
+        </div>
+        <div class="col-md-12 " style="margin-top:3rem">
+            <table class="table table-striped table-bordered table-hover" id="myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Statu</th>
+                        <th class="text-center" scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.ProjectList.Count; i++)
+                    {
+                    <tr>
+                        @{
+                            var projectUserIds = Model.UserList.Where(z => Model.UserProjectMapList.Where(x => x.ProjectId == Model.ProjectList[i].Id).Select(y => y.UserId).ToArray().Contains(z.Id)).ToList();
+                            var width = Model.ProjectList[i].Progress.ToString() + "%";
+                        }
+                        <td class="text-center" scope="row"><img style="height:40px;width:auto;border-radius:50%" src="@Model.ProjectList[i].Icon" /></td>
+                        <td>@Model.ProjectList[i].Name</td>
+                        @if (Model.ProjectList[i].Statu == 1)
+                        {
+                            <td class="text-center" scope="row"><span class="badge badge-danger">Canceled</span></td>
+
+                        }
+                        else if (Model.ProjectList[i].Statu == 2)
+                        {
+                            <td class="text-center" scope="row"><span class="badge badge-info">Progress</span></td>
+                        }
+                        else if (Model.ProjectList[i].Statu == 3)
+                        {
+                            <td class="text-center" scope="row"><span class="badge badge-success">Compeleted</span></td>
+                        }
+                        else if (Model.ProjectList[i].Statu == 4)
+                        {
+                            <td class="text-center" scope="row"><span class="badge badge-warning">Pending</span></td>
+                        }
+                        <td scope="row">
+                            @for (int j = 0; j < projectUserIds.Count; j++)
+                            {
+
+                                <a><img style="height:40px;width:auto;border-radius:50%" src="@projectUserIds[j].Photo" class="img-fluid" /></a>
+
+                            }
+                        </td>
+                        <td scope="row">
+
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="@Html.Raw("width:"+Model.ProjectList[i].Progress.ToString()+"%")" aria-valuenow="@Model.ProjectList[i].Progress" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+
+
+                        </td>
+                        <td>
+                            @if (Model.ProjectList[i].IsPassive)
+                            {
+                                <span class="badge badge-warning">Passive</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">Active</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="/projects/update/@Model.ProjectList[i].Id" class="btn btn-primary">Düzenle</a>
+                            @if (Model.ProjectList[i].IsPassive)
+                            {
+                                <a href="/projects/passive/@Model.ProjectList[i].Id" class="btn btn-success">Active</a>
+
+                            }
+                            else
+                            {
+                                <a href="/projects/passive/@Model.ProjectList[i].Id" class="btn btn-warning">Passive</a>
+
+                            }
+                            <a href="/projects/delete/@Model.ProjectList[i].Id" class="btn btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

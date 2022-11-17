@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SerhatYas.Core\SerhatYas.Core.csproj" />
+    <ProjectReference Include="..\SerhatYas.DataAccess\SerhatYas.DataAccess.csproj" />
+    <ProjectReference Include="..\SerhatYas.Entities\SerhatYas.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

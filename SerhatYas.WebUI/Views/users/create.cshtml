@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SerhatYas.WebUI.Models.ServiceVM
+<h1>User Create</h1>
+<div class="col-md-12">
+    <form action="/users/create" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Name</label>
+                    <input type="text" asp-for="@Model.User.Name" required class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Surname</label>
+                    <input type="text" asp-for="@Model.User.Surname" required class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Mail</label>
+                    <input type="text" asp-for="@Model.User.Mail" required class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-muted">Password</label>
+                    <input type="password" asp-for="@Model.User.Password" required class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <label class="text-muted">Job</label>
+            <textarea id="editor" rows="2" asp-for="@Model.User.Job" class="form-control"></textarea>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="text-muted">User Icon</label>
+            <input type="file" name="file" class="form-control" />
+            <small>Lütfen resim dosyası seçiniz.</small>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+
